@@ -29,7 +29,8 @@ export default function SocialsPage() {
             icon: BookOpen,
             description: 'Read the official docs',
             bgImage: greenCard,
-            textColor: 'text-black'
+            textColor: 'text-black',
+            comingSoon: false
         },
         {
             name: 'GitHub',
@@ -37,7 +38,8 @@ export default function SocialsPage() {
             icon: Github,
             description: 'Star us on GitHub',
             bgImage: blackCard,
-            textColor: 'text-black'
+            textColor: 'text-black',
+            comingSoon: false
         },
         {
             name: 'PyPI',
@@ -46,6 +48,7 @@ export default function SocialsPage() {
             description: 'Install from Python Package Index',
             bgImage: yellowCard,
             textColor: 'text-black',
+            comingSoon: false
         },
         {
             name: 'Sponsor Me',
@@ -54,6 +57,7 @@ export default function SocialsPage() {
             description: 'Sponsor me on GitHub',
             bgImage: pinkCard,
             textColor: 'text-black',
+            comingSoon: false
         },
         {
             name: 'Buy Me a Coffee',
@@ -62,6 +66,7 @@ export default function SocialsPage() {
             description: 'Buy me a coffee',
             bgImage: orangeCard,
             textColor: 'text-black',
+            comingSoon: false
         },
         {
             name: 'X (formerly Twitter)',
@@ -70,15 +75,16 @@ export default function SocialsPage() {
             description: 'Follow for updates',
             bgImage: blueCard,
             textColor: 'text-black',
+            comingSoon: false
         },
         {
             name: 'Discord',
-            url: 'https://discord.gg/peargent',
+            url: 'https://discord.gg/jtNvmjMAYu',
             icon: MessageCircle,
             description: 'Join the community',
             bgImage: purpleCard,
             textColor: 'text-black',
-            comingSoon: true
+            comingSoon: false
         }
     ];
 
