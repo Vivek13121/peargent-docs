@@ -20,6 +20,18 @@ export const metadata: Metadata = {
     default: 'Peargent',
   },
   description: 'A modern, type-safe Python framework for building intelligent, production-grade AI agents.',
+  icons: {
+    icon: [
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  appleWebApp: {
+    title: 'Peargent',
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function Layout({ children }: LayoutProps<'/'>) {
