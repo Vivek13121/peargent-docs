@@ -1,0 +1,267 @@
+---
+title: Text Extraction Tool
+description: Learn how to use the text extraction tool with Peargent agents
+---
+
+<h1 className="mt-4 text-3xl font-medium">
+  <span className="text-primary">Text Extraction Tool</span>
+</h1>
+<h3 className="-mt-7 text-lg font-normal text-muted-foreground">
+  Learn how to use the text extraction tool with Peargent agents
+</h3>
+
+## Overview
+
+The Text Extraction Tool is a built-in Peargent **<u>[Tool](/docs/tools)</u>** that enables **<u>[Agents](/docs/agents)</u>** to extract plain text from various document formats. It supports HTML, PDF, DOCX, TXT, and Markdown files, as well as URLs. The tool can optionally extract metadata such as title, author, page count, and character counts.
+
+### Supported Formats
+
+- **HTML/XHTML** - Web pages with metadata extraction (title, description, author)
+- **PDF** - PDF documents with metadata (title, author, subject, page count)
+- **DOCX** - Microsoft Word documents with document properties
+- **TXT** - Plain text files with automatic encoding detection
+- **Markdown** - Markdown files with title extraction from headers
+- **URLs** - HTTP/HTTPS web resources with built-in SSRF protection
+
+## Usage with Agents
+
+The Text Extraction **<u>[Tool](/docs/tools)</u>** is most powerful when integrated with **<u>[Agents](/docs/agents)</u>**. Agents can use the tool to automatically extract and process document content.
+
+### Creating an Agent with Text Extraction
+
+To use the text extraction tool with an agent, you need to configure it with a **<u>[Model](/docs/models)</u>** and pass the tool to the agent's `tools` parameter:
+
+```python
+from peargent import create_agent
+from peargent.tools import text_extractor # [!code highlight]
+from peargent.models import gemini
+
+# Create an agent with text extraction capability
+agent = create_agent(
+    name="DocumentAnalyzer",
+    description="Analyzes documents and extracts key information",
+    persona=(
+        "You are a document analysis expert. When asked about a document, "
+        "use the text extraction tool to extract its content, then analyze "
+        "and summarize the information."
+    ),
+    model=gemini("gemini-2.5-flash-lite"),
+    tools=[text_extractor] # [!code highlight]
+)
+
+# Use the agent to analyze a document
+response = agent.run("Summarize the key points from document.pdf")
+print(response)
+```
+
+## Examples
+
+### Example 1: Extract Text with Metadata
+
+```python
+from peargent.tools import text_extractor
+
+# Extract text and metadata from an HTML file 
+result = text_extractor.run({
+    "file_path": "article.html",
+    "extract_metadata": True # [!code highlight]
+})
+
+if result["success"]:
+    print(f"Title: {result['metadata']['title']}")
+    print(f"Author: {result['metadata']['author']}")
+    print(f"Word Count: {result['metadata']['word_count']}")
+    print(f"Content:\n{result['text']}")
+else:
+    print(f"Error: {result['error']}")
+```
+
+### Example 2: Extract from URL
+
+```python
+from peargent.tools import text_extractor
+
+# Extract text from a web page
+result = text_extractor.run({
+    "file_path": "https://example.com/article", # [!code highlight]
+    "extract_metadata": True
+})
+
+if result["success"]:
+    print(f"Website Title: {result['metadata']['title']}")
+    print(f"Content: {result['text'][:500]}...")
+```
+
+### Example 3: Extract with Length Limit
+
+```python
+from peargent.tools import text_extractor
+
+# Extract text but limit to 1000 characters
+result = text_extractor.run({
+    "file_path": "long_document.pdf",
+    "extract_metadata": True,
+    "max_length": 1000 # [!code highlight]
+})
+
+print(f"Text (max 1000 chars): {result['text']}")
+```
+
+### Example 4: Batch Processing Multiple Files
+
+```python
+from peargent.tools import text_extractor
+import os
+
+documents = ["doc1.pdf", "doc2.docx", "doc3.html"]
+
+for file_path in documents:
+    if os.path.exists(file_path):
+        result = text_extractor.run({
+            "file_path": file_path,
+            "extract_metadata": True
+        })
+
+        if result["success"]:
+            print(f"\n{file_path} ({result['format']})")
+            print(f"Words: {result['metadata'].get('word_count', 'N/A')}")
+            print(f"Preview: {result['text'][:150]}...")
+        else:
+            print(f"Error processing {file_path}: {result['error']}")
+```
+
+### Example 5: Agent Document Analysis
+
+```python
+from peargent import create_agent
+from peargent.tools import text_extractor # [!code highlight]
+from peargent.models import gemini
+
+# Create a document analysis agent
+agent = create_agent(
+    name="ResearchAssistant",
+    description="Analyzes research papers and extracts key information",
+    persona=(
+        "You are a research assistant specializing in document analysis. "
+        "When given a document, extract its content and identify: "
+        "1) Main topic, 2) Key findings, 3) Methodology, 4) Conclusions"
+    ),
+    model=gemini("gemini-2.5-flash-lite"),
+    tools=[text_extractor] # [!code highlight]
+)
+
+# Ask the agent to analyze a research paper
+response = agent.run(
+    "Please analyze research_paper.pdf and provide a structured summary"
+)
+print(response)
+```
+
+## Common Use Cases
+
+1. **Document Summarization**: Extract text from documents and have agents summarize them
+2. **Information Extraction**: Extract specific information (emails, phone numbers, etc.) from documents
+3. **Content Analysis**: Analyze document sentiment, topics, or keywords
+4. **Batch Processing**: Process multiple documents programmatically
+5. **Web Scraping**: Extract text from web pages while preserving structure
+6. **Research Assistance**: Analyze research papers and academic documents
+7. **Compliance Review**: Extract and review document contents for compliance checking
+
+## Parameters
+
+The text extraction tool accepts the following parameters:
+
+- **file_path** (string, required): Path to the file or URL to extract text from
+- **extract_metadata** (boolean, optional, default: False): Whether to extract metadata like title, author, page count, etc.
+- **max_length** (integer, optional): Maximum text length to return. If exceeded, text is truncated with "..." appended
+
+## Return Value
+
+The tool returns a dictionary with the following structure:
+
+```python
+{
+    "text": "Extracted plain text content",
+    "metadata": {
+        "title": "Document Title",
+        "author": "Author Name",
+        # ... additional metadata depending on format
+    },
+    "format": "pdf",  # Detected file format
+    "success": True,
+    "error": None
+}
+```
+
+## Metadata by Format
+
+Different document formats provide different metadata:
+
+**HTML/XHTML:**
+
+- `title` - Page title
+- `description` - Meta description tag
+- `author` - Meta author tag
+- `word_count` - Number of words
+- `char_count` - Number of characters
+
+**PDF:**
+
+- `title` - Document title
+- `author` - Document author
+- `subject` - Document subject
+- `creator` - Application that created the PDF
+- `producer` - PDF producer
+- `creation_date` - When the document was created
+- `page_count` - Total number of pages
+- `word_count` - Total word count
+- `char_count` - Total character count
+
+**DOCX:**
+
+- `title` - Document title
+- `author` - Document author
+- `subject` - Document subject
+- `created` - Creation date and time
+- `modified` - Last modification date and time
+- `word_count` - Total word count
+- `char_count` - Total character count
+- `paragraph_count` - Number of paragraphs
+
+**TXT/Markdown:**
+
+- `encoding` - Text encoding used
+- `word_count` - Total word count
+- `char_count` - Total character count
+- `line_count` - Total line count
+- `title` - (Markdown only) Title extracted from first heading
+
+## Troubleshooting
+
+### ImportError for document libraries
+
+If you encounter ImportError when extracting specific formats, install the required dependencies:
+
+```bash
+# For all formats
+pip install peargent[text-extraction]
+
+# Or individually
+pip install beautifulsoup4 pypdf python-docx
+```
+
+### SSRF Protection Errors
+
+If you receive "Access to localhost is not allowed" error, ensure you're using a public URL:
+
+```python
+# This will fail
+result = text_extractor.run({"file_path": "http://localhost:8000/doc"})
+
+# Use a public URL instead
+result = text_extractor.run({"file_path": "https://example.com/doc"})
+```
+
+### Encoding Issues with Text Files
+
+For text files with non-standard encoding, the tool automatically detects encoding. If issues persist, ensure the file is properly encoded.
