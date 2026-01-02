@@ -23,6 +23,16 @@ The Text Extraction Tool is a built-in Peargent **<u>[Tool](/docs/tools)</u>** t
 - **Markdown** - Markdown files with title extraction from headers
 - **URLs** - HTTP/HTTPS web resources with built-in SSRF protection
 
+## Common Use Cases
+
+1. **Document Summarization**: Extract text from documents and have agents summarize them
+2. **Information Extraction**: Extract specific information (emails, phone numbers, etc.) from documents
+3. **Content Analysis**: Analyze document sentiment, topics, or keywords
+4. **Batch Processing**: Process multiple documents programmatically
+5. **Web Scraping**: Extract text from web pages while preserving structure
+6. **Research Assistance**: Analyze research papers and academic documents
+7. **Compliance Review**: Extract and review document contents for compliance checking
+
 ## Usage with Agents
 
 The Text Extraction **<u>[Tool](/docs/tools)</u>** is most powerful when integrated with **<u>[Agents](/docs/agents)</u>**. Agents can use the tool to automatically extract and process document content.
@@ -61,7 +71,7 @@ print(response)
 ```python
 from peargent.tools import text_extractor
 
-# Extract text and metadata from an HTML file 
+# Extract text and metadata from an HTML file
 result = text_extractor.run({
     "file_path": "article.html",
     "extract_metadata": True # [!code highlight]
@@ -156,16 +166,6 @@ response = agent.run(
 )
 print(response)
 ```
-
-## Common Use Cases
-
-1. **Document Summarization**: Extract text from documents and have agents summarize them
-2. **Information Extraction**: Extract specific information (emails, phone numbers, etc.) from documents
-3. **Content Analysis**: Analyze document sentiment, topics, or keywords
-4. **Batch Processing**: Process multiple documents programmatically
-5. **Web Scraping**: Extract text from web pages while preserving structure
-6. **Research Assistance**: Analyze research papers and academic documents
-7. **Compliance Review**: Extract and review document contents for compliance checking
 
 ## Parameters
 
