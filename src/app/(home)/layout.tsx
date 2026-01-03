@@ -3,11 +3,18 @@ import { HomeLayout } from '@/components/layout/home';
 
 export const metadata: Metadata = {
   openGraph: {
-    images: ['/banner.png'],
+    images: [
+      {
+        url: 'https://peargent.online/banner.png',
+        width: 1200,
+        height: 630,
+        alt: 'Peargent - Building powerful AI agents, made simple',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/banner.png'],
+    images: ['https://peargent.online/banner.png'],
   },
 };
 
