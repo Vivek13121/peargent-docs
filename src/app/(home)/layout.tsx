@@ -1,4 +1,15 @@
+import type { Metadata } from 'next';
 import { HomeLayout } from '@/components/layout/home';
+
+export const metadata: Metadata = {
+  openGraph: {
+    images: ['/banner.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/banner.png'],
+  },
+};
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   const homeOptions = {
