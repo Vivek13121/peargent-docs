@@ -2,18 +2,24 @@ import type { Metadata } from 'next';
 import { HomeLayout } from '@/components/layout/home';
 
 export const metadata: Metadata = {
+  title: 'Peargent',
+  description: 'Building powerful Python AI agents, made simple.',
   openGraph: {
+    title: 'Peargent',
+    description: 'Building powerful Python AI agents, made simple.',
     images: [
       {
         url: 'https://peargent.online/banner.png',
         width: 1200,
         height: 630,
-        alt: 'Peargent - Building powerful AI agents, made simple',
+        alt: 'Building powerful Python AI agents, made simple.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'Peargent',
+    description: 'Building powerful Python AI agents, made simple.',
     images: ['https://peargent.online/banner.png'],
   },
 };
