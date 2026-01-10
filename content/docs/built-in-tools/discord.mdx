@@ -385,7 +385,8 @@ result = discord_tool.run({
     "embed": {
         "title": "Daily Report",
         "description": """**Completed Tasks:**
-{% for task in tasks %}- {{ task.name }}: {{ task.status }} # [!code highlight]
+{% for task in tasks %}
+- {{ task.name }}: {{ task.status }}
 {% endfor %}""", # [!code highlight]
         "color": 0x5865F2
     },
