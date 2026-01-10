@@ -413,7 +413,7 @@ You are a DevOps notification assistant. When asked to send notifications:
 3. Structure information clearly in embed fields
 4. Include relevant emojis for visual clarity
 5. Add timestamps for time-sensitive alerts
-Always use the discord_webhook tool to send messages.
+Always use the discord_tool to send messages.
     """,
     model=gemini("gemini-2.5-flash-lite"),
     tools=[discord_tool] # [!code highlight]

@@ -362,7 +362,7 @@ You are a smart notification assistant. When asked to send notifications:
 3. Use appropriate formatting (HTML when beneficial)
 4. Include relevant details and call-to-action
 5. Use template variables when provided
-Always use the send_notification tool to send emails.
+Always use the email_tool to send emails.
     """,
     model=gemini("gemini-2.5-flash-lite"),
     tools=[email_tool] # [!code highlight]
