@@ -43,6 +43,13 @@ The Email **<u>[Tool](/docs/tools)</u>** is most powerful when integrated with *
 
 To use the Email tool with an agent, you need to configure it with a **<u>[Model](/docs/models)</u>** and pass the tool to the agent's `tools` parameter:
 
+<Callout>
+  Before using the Email tool, you must configure your SMTP or Resend
+  credentials in your environment file. See **
+  <u>[Configuration](/docs/built-in-tools/email#configuration)</u>** for setup
+  instructions.
+</Callout>
+
 ```python
 from peargent import create_agent
 from peargent.tools import email_tool # [!code highlight]

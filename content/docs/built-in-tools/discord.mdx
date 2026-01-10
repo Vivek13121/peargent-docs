@@ -44,6 +44,13 @@ The Discord **<u>[Tool](/docs/tools)</u>** is most powerful when integrated with
 
 To use the Discord tool with an agent, you need to configure it with a **<u>[Model](/docs/models)</u>** and pass the tool to the agent's `tools` parameter:
 
+<Callout>
+  Before using the Discord tool, you must configure your Discord webhook URL in
+  your environment file. See **
+  <u>[Configuration](/docs/built-in-tools/discord#configuration)</u>** for setup
+  instructions.
+</Callout>
+
 ```python
 from peargent import create_agent
 from peargent.tools import discord_tool # [!code highlight]
